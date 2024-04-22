@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1224F78F228A89FD00750965 /* WatchMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224F78D228A89FC00750965 /* WatchMessageService.swift */; };
+		25EC08612BAC60C5002F8BB2 /* CameraPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EC08602BAC60C5002F8BB2 /* CameraPreviewViewController.swift */; };
 		286F556F22EA062700AECC5C /* DynamicButtonStyleBell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F556E22EA062700AECC5C /* DynamicButtonStyleBell.swift */; };
 		286F557122EA3D4E00AECC5C /* DynamicButtonStyleGear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286F557022EA3D4E00AECC5C /* DynamicButtonStyleGear.swift */; };
 		4D6470DA2561F935007B03FC /* openHABIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D6470D32561F935007B03FC /* openHABIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -245,6 +246,8 @@
 
 /* Begin PBXFileReference section */
 		1224F78D228A89FC00750965 /* WatchMessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchMessageService.swift; sourceTree = "<group>"; };
+		25EC08602BAC60C5002F8BB2 /* CameraPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewViewController.swift; sourceTree = "<group>"; };
+		25EC08622BAC66B2002F8BB2 /* openHABIntentsDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = openHABIntentsDebug.entitlements; sourceTree = "<group>"; };
 		286F556E22EA062700AECC5C /* DynamicButtonStyleBell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicButtonStyleBell.swift; sourceTree = "<group>"; };
 		286F557022EA3D4E00AECC5C /* DynamicButtonStyleGear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicButtonStyleGear.swift; sourceTree = "<group>"; };
 		4D38D951256897490039DA6E /* SetNumberValueIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetNumberValueIntentHandler.swift; sourceTree = "<group>"; };
@@ -556,9 +559,18 @@
 			path = "../openHABWatch Extension";
 			sourceTree = "<group>";
 		};
+		25EC085F2BAC60B1002F8BB2 /* VISCO */ = {
+			isa = PBXGroup;
+			children = (
+				25EC08602BAC60C5002F8BB2 /* CameraPreviewViewController.swift */,
+			);
+			name = VISCO;
+			sourceTree = "<group>";
+		};
 		4D6470D42561F935007B03FC /* openHABIntents */ = {
 			isa = PBXGroup;
 			children = (
+				25EC08622BAC66B2002F8BB2 /* openHABIntentsDebug.entitlements */,
 				4D64720D256315D9007B03FC /* openHABIntents.entitlements */,
 				4D6470D52561F935007B03FC /* IntentHandler.swift */,
 				4D6470D72561F935007B03FC /* Info.plist */,
@@ -915,6 +927,7 @@
 		DFB2623018830A3600D3244D /* openHAB */ = {
 			isa = PBXGroup;
 			children = (
+				25EC085F2BAC60B1002F8BB2 /* VISCO */,
 				938BF9C324EFCB9F00E6B52F /* Main.storyboard */,
 				A3F4C3A41A49A5940019A09F /* MainLaunchScreen.xib */,
 				DFB2623A18830A3600D3244D /* AppDelegate.swift */,
@@ -1392,6 +1405,7 @@
 				DF06F1FC18FEC2020011E7B9 /* ColorPickerViewController.swift in Sources */,
 				1224F78F228A89FD00750965 /* WatchMessageService.swift in Sources */,
 				DAA42BAC21DC984A00244B2A /* WebUITableViewCell.swift in Sources */,
+				25EC08612BAC60C5002F8BB2 /* CameraPreviewViewController.swift in Sources */,
 				DF05EF121D00696200DD646D /* DrawerUITableViewCell.swift in Sources */,
 				DF4B84131886DAC400F34902 /* FrameUITableViewCell.swift in Sources */,
 				DF4B84161886EACA00F34902 /* GenericUITableViewCell.swift in Sources */,
@@ -1532,12 +1546,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = openHABIntents/openHABIntents.entitlements;
+				CODE_SIGN_ENTITLEMENTS = openHABIntents/openHABIntentsDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1552,7 +1566,7 @@
 				MARKETING_VERSION = 2.4.60;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.openhab.openHABIntents;
+				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.ph.openhab.openHABIntents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -1579,7 +1593,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1619,7 +1633,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = openHABUITests/Info.plist;
@@ -1702,7 +1716,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = openHABWatch/Info.plist;
@@ -1714,7 +1728,7 @@
 				MARKETING_VERSION = 2.4.60;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.openhab.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.ph.openhab.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1747,7 +1761,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = openHABWatch/Info.plist;
@@ -1759,7 +1773,7 @@
 				MARKETING_VERSION = 2.4.60;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.openhab.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.ph.openhab.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
@@ -1789,7 +1803,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = openHABTestsSwift/Info.plist;
@@ -1832,7 +1846,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1580410538;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = openHABTestsSwift/Info.plist;
@@ -1986,11 +2000,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = openHAB/openHAB.entitlements;
+				CODE_SIGN_ENTITLEMENTS = openHAB/openHABDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openHAB/openHAB-Prefix.pch";
 				INFOPLIST_FILE = "openHAB/openHAB-Info.plist";
@@ -2006,7 +2020,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 2.4.60;
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
-				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.openhab;
+				PRODUCT_BUNDLE_IDENTIFIER = es.spaphone.ph.openhab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2033,7 +2047,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1580410538;
-				DEVELOPMENT_TEAM = PBAPXHRAM9;
+				DEVELOPMENT_TEAM = 949BRFMFQG;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "openHAB/openHAB-Prefix.pch";
 				INFOPLIST_FILE = "openHAB/openHAB-Info.plist";

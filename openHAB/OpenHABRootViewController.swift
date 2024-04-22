@@ -9,6 +9,7 @@
 //
 // SPDX-License-Identifier: EPL-2.0
 
+import AVFoundation
 import DynamicButton
 import FirebaseCrashlytics
 import Foundation
@@ -31,6 +32,7 @@ protocol ModalHandler: AnyObject {
 
 class OpenHABRootViewController: UIViewController {
     var hamburgerButton: DynamicButton!
+    var liveCameraButton: DynamicButton!
     var currentView: OpenHABViewController!
     var isDemoMode = false
 
@@ -55,6 +57,8 @@ class OpenHABRootViewController: UIViewController {
         os_log("OpenHABRootViewController viewDidLoad", log: .default, type: .info)
 
         setupSideMenu()
+
+        // MARK: implementing camera live preview for VISCO
 
         NotificationCenter.default.addObserver(self, selector: #selector(OpenHABRootViewController.handleApsRegistration(_:)), name: NSNotification.Name("apsRegistered"), object: nil)
 
@@ -108,6 +112,25 @@ class OpenHABRootViewController: UIViewController {
 
     fileprivate func setupSideMenu() {
         let hamburgerButtonItem: UIBarButtonItem
+        let liveCameraButtonItem: UIBarButtonItem
+
+        // MARK: Button to startup live camera preview
+
+        if #available(iOS 13.0, *) {
+            let imageConfig = UIImage.SymbolConfiguration(textStyle: .largeTitle)
+            let buttonImage = UIImage(systemName: "camera.fill", withConfiguration: imageConfig)
+            let button = UIButton(type: .custom)
+            button.setImage(buttonImage, for: .normal)
+            button.addTarget(self, action: #selector(OpenHABRootViewController.startVisco(_:)), for: .touchUpInside)
+            liveCameraButtonItem = UIBarButtonItem(customView: button)
+            liveCameraButtonItem.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        } else {
+            hamburgerButton = DynamicButton(frame: CGRect(x: 0, y: 0, width: 31, height: 31))
+            hamburgerButton.setStyle(.hamburger, animated: true)
+            hamburgerButton.addTarget(self, action: #selector(OpenHABRootViewController.rightDrawerButtonPress(_:)), for: .touchUpInside)
+            hamburgerButton.strokeColor = view.tintColor
+            liveCameraButtonItem = UIBarButtonItem(customView: hamburgerButton)
+        }
         if #available(iOS 13.0, *) {
             let imageConfig = UIImage.SymbolConfiguration(textStyle: .largeTitle)
             let buttonImage = UIImage(systemName: "line.horizontal.3", withConfiguration: imageConfig)
@@ -124,6 +147,7 @@ class OpenHABRootViewController: UIViewController {
             hamburgerButtonItem = UIBarButtonItem(customView: hamburgerButton)
         }
         navigationItem.setRightBarButton(hamburgerButtonItem, animated: true)
+        navigationItem.setLeftBarButton(liveCameraButtonItem, animated: true)
 
         // Define the menus
 
@@ -151,6 +175,12 @@ class OpenHABRootViewController: UIViewController {
     @objc
     func rightDrawerButtonPress(_ sender: Any?) {
         showSideMenu()
+    }
+
+    @objc
+    func startVisco(_ sender: Any?) {
+        let cameraViewController = CameraPreviewViewController()
+        present(cameraViewController, animated: true)
     }
 
     @objc
