@@ -1,45 +1,54 @@
+// Copyright (c) 2010-2024 Contributors to the openHAB project
 //
-//  ImageClassifier.swift
-//  openHAB
+// See the NOTICE file(s) distributed with this work for additional
+// information.
 //
-//  Created by Paulo Henrique on 05/06/24.
-//  Copyright © 2024 openHAB e.V. All rights reserved.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// http://www.eclipse.org/legal/epl-2.0
 //
+// SPDX-License-Identifier: EPL-2.0
 
-import Foundation
-import CoreML
-import Vision
 import AVFoundation
+import CoreML
+import Foundation
+import Vision
 
-@available(iOS 14.0, *)
 class ImageClassifier {
-    
-    let mlModel: MLModel
-    lazy var detector: VNCoreMLModel = try! VNCoreMLModel(for:mlModel)
-    
-    lazy var visionRequest: VNCoreMLRequest = {
-        let request = VNCoreMLRequest(model: detector, completionHandler: { [weak self] request, error in
-            self?.processObservation(for: request, error: error)
-        })
-        return request
+    var mlModel: MLModel = .init()
+    var detector: VNCoreMLModel?
+
+    lazy var visionRequest: VNCoreMLRequest? = {
+        if let unwrapedDetector = detector {
+            let request = VNCoreMLRequest(model: unwrapedDetector) { [weak self] request, error in
+                self?.processObservation(for: request, error: error)
+            }
+            return request
+        }
+        return nil
     }()
-    
+
     init() {
-        mlModel = try! yolov8m(configuration: .init()).model
+        guard let unwrapedModel = try? yolov8m(configuration: .init()).model else { return }
+        mlModel = unwrapedModel
+        guard let unwrapedDetector = try? VNCoreMLModel(for: unwrapedModel) else { return }
+        detector = unwrapedDetector
+        print("passou")
     }
-    
+
     func predict(sampleBuffer: CMSampleBuffer) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return}
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         let handle = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
         do {
-            try handle.perform([visionRequest])
+            guard let unwrapedRequest = visionRequest else { return }
+            try handle.perform([unwrapedRequest])
         } catch {
             print(error)
         }
     }
-    
+
     func processObservation(for request: VNRequest, error: Error?) {
-        //TODO: Colocar a lógica para predizer de acordo com a amostragem e retornar o label para o botão a ser pesquisado
+        // TODO: Colocar a lógica para predizer de acordo com a amostragem e retornar o label para o botão a ser pesquisado
         DispatchQueue.main.async {
             if let results = request.results as? [VNRecognizedObjectObservation] {
                 self.showLabels(predictions: results)
@@ -48,14 +57,13 @@ class ImageClassifier {
             }
         }
     }
-    
+
     func showLabels(predictions: [VNRecognizedObjectObservation]) {
         print("number of predictions: \(predictions.count)")
-        for i in 0...predictions.count {
-            let prediction = predictions[i]
-            let bestClass = prediction.labels.first?.identifier
-            let confindence = prediction.labels.first?.confidence
-            
+        for prediction in predictions {
+            guard let bestClass = prediction.labels.first?.identifier else { return }
+            guard let confindence = prediction.labels.first?.confidence else { return }
+
             print("Best class: \(String(describing: bestClass))\nConfindence:\(String(describing: confindence))")
         }
     }

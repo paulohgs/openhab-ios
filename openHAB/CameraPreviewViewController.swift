@@ -13,10 +13,9 @@ import AVFoundation
 import Foundation
 import UIKit
 
-@available(iOS 14.0, *)
 final class CameraPreviewViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var captureSession: AVCaptureSession!
-    var imageClassifier: ImageClassifier = ImageClassifier()
+    var imageClassifier: ImageClassifier = .init()
     var dataOutput: AVCaptureVideoDataOutput!
 
     override func viewDidLoad() {
@@ -31,15 +30,15 @@ final class CameraPreviewViewController: UIViewController, AVCaptureVideoDataOut
         DispatchQueue.global(qos: .background).async {
             self.captureSession.startRunning()
         }
-        
+
         dataOutput = AVCaptureVideoDataOutput()
         dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoOutput"))
         captureSession.addOutput(dataOutput)
-        
+
         print("view instanciada")
     }
-    
-    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        self.imageClassifier.predict(sampleBuffer: sampleBuffer)
+
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        imageClassifier.predict(sampleBuffer: sampleBuffer)
     }
 }
