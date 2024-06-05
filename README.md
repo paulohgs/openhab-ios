@@ -1,3 +1,9 @@
+# DISCLAIMER
+
+THIS REPOSITORY IS ONLY FOR TESTS AND RESEARCH! DO NOT USE IT IF YOU WANT TO CONTRIBUTE FOR THE ORIGINAL REPOSITORY.
+
+---
+
 <p align="center">
     <img alt="Logo" src="openHAB/Images.xcassets/AppIcon.appiconset/Icon.png" width="100">
     <br>
