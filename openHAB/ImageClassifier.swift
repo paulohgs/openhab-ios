@@ -59,12 +59,23 @@ class ImageClassifier {
     }
 
     func showLabels(predictions: [VNRecognizedObjectObservation]) {
-        print("number of predictions: \(predictions.count)")
+        var labels: [String : Int] = [:]
         for prediction in predictions {
-            guard let bestClass = prediction.labels.first?.identifier else { return }
-            guard let confindence = prediction.labels.first?.confidence else { return }
-
+            guard let bestClass = prediction.labels.first?.identifier else { continue }
+            guard let confindence = prediction.labels.first?.confidence else { continue }
+            if !(confindence >= 0.75) {
+                return
+            }
+            
+            if labels[bestClass] == 30 {
+                print("bateu 30!")
+            }
             print("Best class: \(String(describing: bestClass))\nConfindence:\(String(describing: confindence))")
+            if let count = labels[bestClass] {
+                labels[bestClass] = count + 1
+            } else {
+                labels[bestClass] = 1
+            }
         }
     }
 }
