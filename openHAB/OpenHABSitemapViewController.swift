@@ -12,6 +12,7 @@
 import Alamofire
 import AVFoundation
 import AVKit
+import DynamicButton
 import Fuzi
 import Kingfisher
 import OpenHABCore
@@ -60,7 +61,8 @@ struct OpenHABImageProcessor: ImageProcessor {
 
 class OpenHABSitemapViewController: OpenHABViewController, GenericUITableViewCellTouchEventDelegate {
     var pageUrl = ""
-    // private var hamburgerButton: DynamicButton!
+    var query: String = ""
+    private var livePreviewButton: UIBarButtonItem!
     private var selectedWidgetRow: Int = 0
     private var currentPageOperation: Alamofire.Request?
     private var commandOperation: Alamofire.Request?
@@ -145,7 +147,6 @@ class OpenHABSitemapViewController: OpenHABViewController, GenericUITableViewCel
     override func viewDidAppear(_ animated: Bool) {
         os_log("OpenHABSitemapViewController viewDidAppear", log: .viewCycle, type: .info)
         super.viewDidAppear(animated)
-
         // NOTE: workaround for https://github.com/openhab/openhab-ios/issues/420
         if parent?.navigationItem.searchController == nil {
             DispatchQueue.main.async {
@@ -239,6 +240,8 @@ class OpenHABSitemapViewController: OpenHABViewController, GenericUITableViewCel
                 restart()
             }
         }
+        os_log("Iniciou o VISCO", log: .viewCycle, type: .debug)
+        filterVisco(query: query)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -407,6 +410,22 @@ class OpenHABSitemapViewController: OpenHABViewController, GenericUITableViewCel
         currentPageOperation?.resume()
 
         os_log("OpenHABSitemapViewController request sent", log: .remoteAccess, type: .error)
+    }
+
+    @objc
+    func filterVisco(query: String) {
+        NetworkConnection.filterItemsVisco(
+            openHABRootUrl: openHABRootUrl,
+            sitemapName: defaultSitemap,
+            query: query
+        ) { response in
+            switch response.result {
+            case let .success(data):
+                print("sucesso: \(data)")
+            case let .failure(error):
+                print("falhou: \(error)")
+            }
+        }
     }
 
     // Select sitemap

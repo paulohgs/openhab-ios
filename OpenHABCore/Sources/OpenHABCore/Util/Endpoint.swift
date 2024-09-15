@@ -50,6 +50,14 @@ public extension Endpoint {
         )
     }
 
+    static func existElementsInSitemap(openHABRootUrl: String, sitemapName: String, query: String) -> Endpoint {
+        Endpoint(
+            baseURL: openHABRootUrl,
+            path: "/rest/sitemaps/exists-an-element-in/\(sitemapName)",
+            queryItems: [URLQueryItem(name: "widget-query", value: query)]
+        )
+    }
+
     static func appleRegistration(prefsURL: String,
                                   deviceToken: String,
                                   deviceId: String,

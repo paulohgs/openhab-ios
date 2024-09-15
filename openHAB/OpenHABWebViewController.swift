@@ -20,6 +20,7 @@ import WebKit
 class OpenHABWebViewController: OpenHABViewController {
     private var currentTarget = ""
     private var openHABTrackedRootUrl = ""
+    private var testButton: UIBarButtonItem!
     private var hideNavBar = false
     private var tracker: OpenHABTracker?
     private var activityIndicator: UIActivityIndicatorView!
@@ -66,6 +67,19 @@ class OpenHABWebViewController: OpenHABViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let liveCameraButtonItem: UIBarButtonItem
+
+        // MARK: Button to startup live camera preview
+
+        let imageConfig = UIImage.SymbolConfiguration(textStyle: .largeTitle)
+        let buttonImage = UIImage(systemName: "figure.walk", withConfiguration: imageConfig)
+        let button = UIButton(type: .custom)
+        button.setImage(buttonImage, for: .normal)
+        button.addTarget(self, action: #selector(OpenHABRootViewController.startVisco(_:)), for: .touchUpInside)
+        liveCameraButtonItem = UIBarButtonItem(customView: button)
+        liveCameraButtonItem.customView?.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+        navigationItem.setLeftBarButton(liveCameraButtonItem, animated: true)
         navigationController?.setNavigationBarHidden(hideNavBar, animated: animated)
         navigationController?.navigationBar.prefersLargeTitles = false
         parent?.navigationItem.title = "Main View"

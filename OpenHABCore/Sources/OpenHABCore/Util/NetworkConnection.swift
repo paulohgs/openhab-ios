@@ -107,6 +107,20 @@ public class NetworkConnection {
         }
     }
 
+    public static func filterItemsVisco(openHABRootUrl: String,
+                                        sitemapName: String,
+                                        query: String,
+                                        completionHandler: @escaping (DataResponse<Data, AFError>) -> Void) {
+        print("passou aqui")
+        if let url = Endpoint.existElementsInSitemap(
+            openHABRootUrl: openHABRootUrl,
+            sitemapName: sitemapName,
+            query: query
+        ).url {
+            load(from: url, completionHandler: completionHandler)
+        }
+    }
+
     public static func uiTiles(openHABRootUrl: String,
                                completionHandler: @escaping (DataResponse<Data, AFError>) -> Void) {
         if let url = Endpoint.uiTiles(openHABRootUrl: openHABRootUrl).url {
@@ -224,7 +238,7 @@ public class NetworkConnection {
 
         os_log("Firing request", log: .viewCycle, type: .debug)
         let task = NetworkConnection.shared.manager.request(request)
-            .validate()
+//            .validate()
             .responseData(completionHandler: completionHandler)
         task.resume()
     }

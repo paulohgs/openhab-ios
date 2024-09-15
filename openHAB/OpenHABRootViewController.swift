@@ -179,8 +179,8 @@ class OpenHABRootViewController: UIViewController {
 
     @objc
     func startVisco(_ sender: Any?) {
-        let cameraViewController = CameraPreviewViewController()
-        present(cameraViewController, animated: true)
+//        switchView(target: .sitemap)
+        present(CameraPreviewViewController(), animated: true)
     }
 
     @objc

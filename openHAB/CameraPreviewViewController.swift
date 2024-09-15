@@ -13,10 +13,11 @@ import AVFoundation
 import Foundation
 import UIKit
 
-final class CameraPreviewViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+final class CameraPreviewViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, ImageClassifierDelegate {
     var captureSession: AVCaptureSession!
     var imageClassifier: ImageClassifier = .init()
     var dataOutput: AVCaptureVideoDataOutput!
+    var boundingBoxView: BoundingBoxView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +36,27 @@ final class CameraPreviewViewController: UIViewController, AVCaptureVideoDataOut
         dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoOutput"))
         captureSession.addOutput(dataOutput)
 
+        imageClassifier.delegate = self
+
+        boundingBoxView = BoundingBoxView()
+        boundingBoxView.addToLayer(view.layer)
+
         print("view instanciada")
     }
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         imageClassifier.predict(sampleBuffer: sampleBuffer)
+    }
+
+    func showBoxes(at coordinates: CGRect, with label: String) {
+        DispatchQueue.main.async {
+            let width = self.view.frame.width * coordinates.width
+            let height = self.view.frame.height * coordinates.height
+            let x = self.view.frame.width * coordinates.origin.x
+            let y = self.view.frame.height * (1 - coordinates.origin.y - coordinates.height)
+
+            let frame = CGRect(x: x, y: y, width: width, height: height)
+            self.boundingBoxView.show(frame: frame, label: label, color: UIColor.red, alpha: 0.75)
+        }
     }
 }
